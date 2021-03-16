@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: htmldeploy
+  labels:
+    app: task3-html-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: html
+  template:
+    metadata: 
+      name:  html-pod
+      labels:
+        app: html
+    spec:
+      containers:
+        - name: htmlcon
+          image: httpd
+          volumeMounts:
+            - name: htmlvol
+              mountPath: /usr/local/apache2/htdocs/
+      volumes:
+        - name: htmlvol 
+          persistentVolumeClaim:
+            claimName: htmlpvc
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: htmlpvc
+  labels:
+    name: task3-html-pvc  
+spec:
+  accessModes: 
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: htmlservice
+  
+spec:
+  selector:
+    app: html
+  ports:
+    - port: 81
+      targetPort: 80
+      nodePort: 30000
+  type: NodePort 
+
+
+
+
+
+
+
+
+
+
