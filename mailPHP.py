@@ -6,8 +6,9 @@ sender_email = "iampalakjain01@gmail.com"  # Enter your address
 receiver_email = "itspalak19@gmail.com"  # Enter receiver address
 password = "xecbeupbulzfwpos"
 message = """\
-Subject: Hi there,
-you have some error on your website
+Subject: Error!
+Hey,
+you have some error on your PHP website
 Please check !
 """
 
